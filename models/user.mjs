@@ -1,6 +1,6 @@
-export default function initTripModel(sequelize, DataTypes) {
+export default function initUserModel(sequelize, DataTypes) {
   return sequelize.define(
-    'trip',
+    'user',
     {
       id: {
         allowNull: false,
@@ -8,21 +8,29 @@ export default function initTripModel(sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      name: {
-        type: DataTypes.STRING,
+      displayName: {
+        type: DataTypes.STRING(64),
+        allowNull: false,
+        unique: true,
+      },
+      walletAddress: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
       },
       createdAt: {
-        allowNull: false,
         type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
-        allowNull: false,
         type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
       },
     },
     {
       // The underscored option makes Sequelize reference snake_case names in the DB.
       underscored: true,
-    }
+    },
   );
-};
+}
