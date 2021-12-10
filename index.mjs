@@ -6,8 +6,8 @@ import cors from 'cors';
 import bindRoutes from './routes.mjs';
 
 // Deployment test
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
-// const FRONTEND_URL = '';
+// const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const FRONTEND_URL = 'https://damp-bayou-29307.herokuapp.com/';
 // Initialise Express instance
 const app = express();
 // Set CORS headers
