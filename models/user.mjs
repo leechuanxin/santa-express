@@ -9,12 +9,11 @@ export default function initUserModel(sequelize, DataTypes) {
         type: DataTypes.INTEGER,
       },
       displayName: {
-        type: DataTypes.STRING(64),
-        allowNull: false,
+        type: DataTypes.STRING,
         unique: true,
       },
       walletAddress: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(64),
         allowNull: false,
       },
       createdAt: {

@@ -8,11 +8,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       display_name: {
-        type: Sequelize.STRING(64),
-        allowNull: false,
+        type: Sequelize.STRING,
       },
       wallet_address: {
-        type: Sequelize.STRING(128),
+        type: Sequelize.STRING(64),
         allowNull: false,
       },
       created_at: {

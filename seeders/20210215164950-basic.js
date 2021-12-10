@@ -1,22 +1,9 @@
-const jssha = require('jssha');
-
-const { SALT } = process.env;
-
-function getHash(input) {
-  // eslint-disable-next-line new-cap
-  const shaObj = new jssha('SHA-512', 'TEXT', { encoding: 'UTF8' });
-  const unhasedString = `${input}-${SALT}`;
-  shaObj.update(unhasedString);
-
-  return shaObj.getHash('HEX');
-}
-
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert('users', [
       {
-        display_name: 'The Real Santa',
-        wallet_address: getHash('testuser123'),
+        display_name: 'the_real_santa',
+        wallet_address: 'd79aeec77b3b6e6ec5f45ae5e040173380262e1ea51b38747195c3cf09a02f16',
         created_at: new Date(),
         updated_at: new Date(),
       },
