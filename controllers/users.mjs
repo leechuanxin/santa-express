@@ -27,8 +27,17 @@ export default function initUsersController(db) {
         const successMessage = `New user added with the cryptowallet address ${newUser.walletAddress}!`;
 
         response.send({
+          id: newUser.id,
           message: successMessage,
           address: newUser.walletAddress,
+        });
+      } else if (user && !user.displayName) {
+        const successMessage = `User with the cryptowallet address ${user.walletAddress} not yet onboarded!`;
+
+        response.send({
+          id: user.id,
+          message: successMessage,
+          address: user.walletAddress,
         });
       } else {
         response.send({
