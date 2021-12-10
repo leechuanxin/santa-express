@@ -8,4 +8,5 @@ export default function bindRoutes(app) {
   const UsersController = initUsersController(db);
 
   app.post('/user/onboard', UsersController.onboard);
+  app.put('/user/update', UsersController.update);
 }
