@@ -142,10 +142,81 @@ export default function initUsersController(db) {
     }
   };
 
+  const showAll = async (request, response) => {
+    const { idAddress } = request.params;
+    try {
+      if (
+        !idAddress
+        || idAddress.trim() === ''
+        || (idAddress.indexOf('-') < 0)
+      ) {
+        throw new Error(globals.INVALID_ID_ADDRESS_MESSAGE);
+      }
+
+      const userId = Number(idAddress.split('-')[0]);
+      const address = idAddress.split('-')[1];
+
+      const user = await db.User.findOne({
+        where: {
+          [db.Sequelize.Op.and]: [
+            { id: userId },
+            { walletAddress: address },
+          ],
+        },
+      });
+
+      if (!user) {
+        throw new Error(globals.INVALID_ID_ADDRESS_MESSAGE);
+      }
+
+      const users = await db.User.findAll();
+
+      if (users.length < 1) {
+        throw new Error(globals.NO_USERS_FOUND_MESSGE);
+      }
+
+      const usersArr = [];
+
+      for (let i = 0; i < users.length; i += 1) {
+        if (
+          users[i].dataValues.displayName !== 'the_real_santa'
+        ) {
+          const userObj = {
+            ...users[i].dataValues,
+          };
+          delete userObj.createdAt;
+          delete userObj.updatedAt;
+          usersArr.push(userObj);
+        }
+      }
+
+      response.send({
+        success: true,
+        message: 'Successfully retrieved the list of users!',
+        users: usersArr,
+      });
+    } catch (error) {
+      let errorMessage = '';
+      if (error.message === globals.INVALID_ID_ADDRESS_MESSAGE) {
+        errorMessage = 'There has been an error. The ID / address combination is invalid!';
+      } else {
+        errorMessage = error.message;
+      }
+
+      const resObj = {
+        error: errorMessage,
+        message: errorMessage,
+      };
+
+      response.send(resObj);
+    }
+  };
+
   // return all methods we define in an object
   // refer to the routes file above to see this used
   return {
     onboard,
     update,
+    showAll,
   };
 }

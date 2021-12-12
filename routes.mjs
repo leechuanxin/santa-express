@@ -10,6 +10,7 @@ export default function bindRoutes(app) {
   const TestController = initTestController();
 
   app.get('/testapi', TestController.index);
+  app.get('/user/:idAddress/users', UsersController.showAll);
   app.post('/user/onboard', UsersController.onboard);
   app.put('/user/update', UsersController.update);
 }
