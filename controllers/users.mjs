@@ -14,7 +14,9 @@ export default function initUsersController(db) {
 
       const user = await db.User.findOne({
         where: {
-          walletAddress: address,
+          walletAddress: {
+            [db.Sequelize.Op.iLike]: address,
+          },
         },
       });
 
@@ -87,7 +89,11 @@ export default function initUsersController(db) {
         where: {
           [db.Sequelize.Op.and]: [
             { id: userInfo.userId },
-            { walletAddress: userInfo.address },
+            {
+              walletAddress: {
+                [db.Sequelize.Op.iLike]: userInfo.address,
+              },
+            },
           ],
         },
       });
@@ -160,7 +166,11 @@ export default function initUsersController(db) {
         where: {
           [db.Sequelize.Op.and]: [
             { id: userId },
-            { walletAddress: address },
+            {
+              walletAddress: {
+                [db.Sequelize.Op.iLike]: address,
+              },
+            },
           ],
         },
       });
