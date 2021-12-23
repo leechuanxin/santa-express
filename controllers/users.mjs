@@ -76,7 +76,7 @@ export default function initUsersController(db) {
         !userInfo.address
         || typeof userInfo.address !== 'string'
         || userInfo.address.trim() === ''
-        || userInfo.address !== userInfo.address2
+        || userInfo.address.toLowerCase() !== userInfo.address2.toLowerCase()
       ) {
         throw new Error(globals.INVALID_ADDRESS_ERROR_MESSAGE);
       }
