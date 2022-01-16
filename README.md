@@ -127,6 +127,7 @@ You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 - [ ] ERC-1155 methods on Wish making
 - [ ] Goodwill points earned weighted against prices for granting individual Wishes
 - [ ] Rarity of Badges, and corresponding Goodwill points for redeeming Badges based on rarity
+- [ ] Explore wallet authentication alternatives, such as [ethereumjs-wallet](https://github.com/ethereumjs/ethereumjs-wallet).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
