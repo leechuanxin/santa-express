@@ -171,15 +171,15 @@ When we make changes and deploy the changes on the smart contract, we will use t
 
 Using a multi-level inheritance approach to development and deployment on a single smart contract storing our data, every new deployment has a problem of behaving like a new migration or re-seeding of data. Previous data that is now stored in the old contracts will not be present in the newly deployed contracts.
 
-Thus, we have had issues with data persistence. We had to manually re-seed all prior interactions with the dApp using our multiple wallet test accounts. 
+Thus, we have had issues with data persistence. We had to manually re-seed all prior interactions with the dApp using our multiple wallet test accounts.
 
-#### Token Standards and Contract Deployment
+Theoretically, having separate contracts for the "data" and the "controller" methods which interact with the data can solve the data persistence problem, as well as the smart contract size limit. We deploy "data" contracts storing data and mappings separately from the "controller" ones defining the methods that interact with said data. For these contracts to interact, the addresses of the "data" contracts will be provided to the "controller" contracts to call any of their setters or getters.
 
-Elaborating on the sub-section above, using proper token standards and contract deployment procedures may have mitigated our data persistence problem.
+Without using too many instances of multiple or multi-level inheritance on a single contract like we do now, our smart contract(s)' logic can be better encapsulated without much space overheads.
 
-Instead of taking this multi-level inheritance approach, we could have kept the data and the controller separate. This means we deploy "data" contracts storing data and mappings separately from the "controller" ones defining the methods that interact with said data. For these contracts to interact, the addresses of the "data" contracts will be provided to the "controller" contracts to call their methods.
+#### Token Standards
 
-In fact, this approach can be used in our handling of ERC-721 tokens, as suggested by [this QuickNode guide on deploying ERC-721 NFTs](https://www.quicknode.com/guides/solidity/how-to-create-and-deploy-an-erc-721-nft). This guide suggests deploying every ERC-721 token individually as a smart contract. This approach will be handy for defining the Badges users can redeem on granting Wishes and their ownership, [which unfortunately does not yet utilise any ERC-721 methods](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Incentive.sol).
+The approach of having separate contracts should have been and can be used in our handling of ERC-721 tokens, as suggested by [this QuickNode guide on deploying ERC-721 NFTs](https://www.quicknode.com/guides/solidity/how-to-create-and-deploy-an-erc-721-nft). This guide suggests that ERC-721 tokens are supposed to be deployed 1 per contract. It will be handy for defining the Badges users can redeem on granting Wishes and their ownership, [which unfortunately does not yet utilise any ERC-721 methods](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Incentive.sol).
 
 [Making a Wish involve employing ERC-721 methods](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Token.sol#L76-L108) like `_safeMint`, because a Wish is a token minted by the user making it. A Wish does not involve any ERC-721 ownership transfer methods currently.
 
