@@ -17,7 +17,7 @@ Wish upon a Santa is an online Christmas-themed wishing well that allows users t
 <details>
   <summary>Table of Contents</summary>
   <ol>
-  	<li>
+    <li>
       <a href="#introduction">Introduction</a>
     </li>
     <li>
@@ -30,8 +30,24 @@ Wish upon a Santa is an online Christmas-themed wishing well that allows users t
       <a href="#usage">Usage</a>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#retrospective">Retrospective</a></li>
-	 <li><a href="#contact">Contact</a></li>
+    <li>
+      <a href="#retrospective">Retrospective</a>
+      <ol>
+        <li>
+	  <a href="#testing-and-circumventing-lack-of-print-statements">Testing and Circumventing Lack of Print Statements</a>
+	</li>
+	<li>
+	  <a href="#smart-contract-size-limit-and-array-methods">Smart Contract Size Limit and Array Methods</a>
+	</li>
+	<li>
+	  <a href="#dual-database-approach-and-data-persistence">Dual Database Approach and Data Persistence</a>
+	</li>
+	<li>
+	  <a href="#token-standards">Token Standards</a>
+	</li>
+      </ol>
+    </li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -137,6 +153,8 @@ You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 
 ## Retrospective
 
+<!-- TESTING AND CIRCUMVENTING LACK OF PRINT STATEMENTS -->
+
 #### Testing and Circumventing Lack of Print Statements
 
 There are no `print` nor `console.log` statements in Solidity. Unfortunately, we only attempted to set up tests using Truffle, Mocha and Chai right before the MVP deadline. Since we still had some features due before the deadline, we could not afford to be blocked by setting up tests in that timeframe. We had to scrap tests.
@@ -146,6 +164,10 @@ We worked around that by being very careful with our commits. This means manuall
 Looking back, given our lack of prior contextual knowledge on blockchain development, Web3, NFTs, and cryptocurrency, we could have played it a lot safer setting up tests right at the project's start. Perhaps, even a test-driven development (TDD) approach would have worked for the project's context.
 
 We only knew about [Hardhat](https://hardhat.org/) days before our presentation. Given our native JavaScript backgrounds, debugging with the Hardhat network and [their console.logs methods from their Console contracts](https://hardhat.org/tutorial/debugging-with-hardhat-network.html) would have made our lives a lot easier.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- SMART CONTRACT SIZE LIMIT AND ARRAY METHODS -->
 
 #### Smart Contract Size Limit and Array Methods
 
@@ -163,6 +185,10 @@ Resorting to manual testing, we realised that we triggered this warning the most
 
 With the exception of [a function for retrieving user information given their IDs and addresses](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Wishlist.sol#L88-L94), most of the functions that require any form of filtering and sorting similar to JavaScript Array methods are moved to be executed on the front-end instead.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- DUAL DATABASE APPROACH AND DATA PERSISTENCE -->
+
 #### Dual Database Approach and Data Persistence
 
 Our Express backend only serves 1 cosmetic purpose: attach a username to a connected wallet address. However, our Solidity contract stores data about almost everything else in the dApp: wish and badge information, token ownership information, and user information about wishes granted.
@@ -178,6 +204,10 @@ Thus, we have had issues with data persistence. We had to manually re-seed all p
 Theoretically, having separate contracts for the "data" and the "controller" methods which interact with the data can solve the data persistence problem, as well as the smart contract size limit. We deploy "data" contracts storing data and mappings separately from the "controller" ones defining the methods that interact with said data. For these contracts to interact, the addresses of the "data" contracts will be provided to the "controller" contracts to call any of their setters or getters.
 
 Without using too many instances of multiple or multi-level inheritance on a single contract like we do now, our smart contract(s)' logic can be better encapsulated without much space overheads.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- TOKEN STANDARDS -->
 
 #### Token Standards
 
