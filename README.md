@@ -10,6 +10,8 @@
 
 Wish upon a Santa is an online Christmas-themed wishing well that allows users to make wishes, as well as grant wishes made by other users.
 
+**This project is deployed and can be viewed on this [website](https://damp-bayou-29307.herokuapp.com/).**
+
 <!-- TABLE OF CONTENTS -->
 
 <details>
